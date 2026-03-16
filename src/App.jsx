@@ -182,39 +182,40 @@ function App() {
           </div>
 
           {/* ===== MENU DROPDOWN VERSI HP ===== */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden mt-4 bg-stone-700 rounded-2xl p-5 flex flex-col space-y-4 border border-stone-600 shadow-xl animate-in fade-in slide-in-from-top-4">
-              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-300 border-b border-stone-600 pb-3">Koleksi</Link>
-              <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-300 border-b border-stone-600 pb-3">Tentang</Link>
+          {/* ===== MENU DROPDOWN VERSI HP (TEMA TERANG & MEWAH) ===== */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden mt-4 bg-white text-stone-800 rounded-2xl p-5 flex flex-col space-y-4 shadow-2xl border border-stone-200 absolute left-4 right-4 z-50 animate-in fade-in slide-in-from-top-4">
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-500 border-b border-stone-100 pb-3">Koleksi</Link>
+            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-500 border-b border-stone-100 pb-3">Tentang</Link>
 
-              {isLoggedIn ? (
-                <div className="flex flex-col space-y-3 pt-2">
-                  {isAdmin && (
-                    <div className="flex flex-col gap-2 mb-2">
-                      <Link to="/tambah-menu" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold bg-white text-stone-800 px-4 py-2.5 rounded-full text-center hover:bg-stone-200 transition-all uppercase tracking-tighter">
-                        + Tambah Produk
-                      </Link>
-                      <Link to="/admin/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold border border-stone-400 text-white px-4 py-2.5 rounded-full text-center hover:bg-stone-600 transition-all uppercase tracking-tighter">
-                        👑 Dashboard
-                      </Link>
-                    </div>
-                  )}
-                  <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold hover:text-stone-300 uppercase">Profil</Link>
-                  <button 
-                    onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} 
-                    className="bg-red-900/50 text-red-200 text-xs px-4 py-3 mt-2 rounded-full font-bold hover:bg-red-800 transition-all uppercase w-full"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <div className="flex flex-col space-y-3 pt-2">
-                  <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold text-center border border-stone-500 py-2.5 rounded-full hover:bg-stone-600 transition-colors uppercase">Masuk</Link>
-                  <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="bg-white text-center text-stone-800 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-stone-200 transition-all uppercase">Daftar</Link>
-                </div>
-              )}
-            </div>
-          )}
+            {isLoggedIn ? (
+              <div className="flex flex-col space-y-3 pt-2">
+                {isAdmin && (
+                  <div className="flex flex-col gap-2 mb-2">
+                    <Link to="/tambah-menu" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold bg-stone-800 text-white px-4 py-2.5 rounded-full text-center hover:bg-stone-700 transition-all uppercase tracking-tighter shadow-md">
+                      + Tambah Produk
+                    </Link>
+                    <Link to="/admin/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold border-2 border-stone-800 text-stone-800 px-4 py-2.5 rounded-full text-center hover:bg-stone-100 transition-all uppercase tracking-tighter">
+                      👑 Dashboard
+                    </Link>
+                  </div>
+                )}
+                <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold hover:text-stone-500 uppercase border-b border-stone-100 pb-3">Profil</Link>
+                <button 
+                  onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} 
+                  className="bg-red-50 text-red-600 border border-red-100 text-xs px-4 py-3 mt-2 rounded-full font-bold hover:bg-red-100 transition-all uppercase w-full shadow-sm"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-3 pt-2">
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold text-center border-2 border-stone-800 text-stone-800 py-2.5 rounded-full hover:bg-stone-50 transition-colors uppercase">Masuk</Link>
+                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="bg-stone-800 text-white text-center px-4 py-2.5 rounded-full text-sm font-bold hover:bg-stone-700 transition-all uppercase shadow-md">Daftar</Link>
+              </div>
+            )}
+          </div>
+        )}
         </nav>
 
         {/* 👇 Bagian flex-grow agar Footer tetap di bawah */}
