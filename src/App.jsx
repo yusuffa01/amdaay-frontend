@@ -28,8 +28,10 @@ function ScrollToTop() {
 }
 
 function App() {
+  // ===== KUMPULAN STATE (MEMORI REACT) HARUS DI SINI =====
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // ✅ SUDAH DIPINDAH KE SINI
 
   const [keranjang, setKeranjang] = useState(() => {
     const simpanan = localStorage.getItem('keranjangAmdaay');
@@ -119,8 +121,7 @@ function App() {
     teks += `%0A*Total Bayar: Rp ${totalHargaKeranjang.toLocaleString('id-ID')}*%0A%0AMohon info ongkirnya ya Admin `
     window.open(`https://wa.me/${nomorWA}?text=${teks}`, '_blank')
     setIsModalKeranjangOpen(false);
-
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    // ❌ Kode yang salah tempat sudah dihapus dari sini
   };
 
   return (
@@ -138,7 +139,7 @@ function App() {
             </span>
           </Link>
 
-          {/* ===== MENU VERSI LAPTOP (Tetap Sama) ===== */}
+          {/* ===== MENU VERSI LAPTOP ===== */}
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/" className="text-sm font-bold uppercase tracking-widest hover:text-stone-400 transition-colors">Koleksi</Link>
             <Link to="/about" className="text-sm font-bold uppercase tracking-widest hover:text-stone-400 transition-colors">Tentang</Link>
