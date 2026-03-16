@@ -128,112 +128,121 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       
-      {/* NAVBAR */}
-      <nav className="bg-stone-800 p-4 shadow-lg sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto flex justify-between items-center text-white">
-          {/* Logo & Judul */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <img src="/logoweb.jpg" alt="Logo" className="h-12 w-12 object-cover rounded-full border-2 border-stone-600" />
-            <span className="text-xl font-serif font-bold text-white tracking-widest uppercase group-hover:text-stone-300 transition-colors">
-              Amdaay.Scarf
-            </span>
-          </Link>
+      {/* 👇 SABUK PENGAMAN KITA PASANG DI SINI */}
+      <div className="w-full overflow-x-hidden min-h-screen flex flex-col">
+        
+        {/* NAVBAR - Ditambah w-full agar memanjang penuh */}
+        <nav className="bg-stone-800 p-4 shadow-lg sticky top-0 z-40 w-full">
+          <div className="max-w-6xl mx-auto flex justify-between items-center text-white">
+            {/* Logo & Judul */}
+            <Link to="/" className="flex items-center gap-3 group">
+              <img src="/logoweb.jpg" alt="Logo" className="h-12 w-12 object-cover rounded-full border-2 border-stone-600" />
+              <span className="text-xl font-serif font-bold text-white tracking-widest uppercase group-hover:text-stone-300 transition-colors">
+                Amdaay.Scarf
+              </span>
+            </Link>
 
-          {/* ===== MENU VERSI LAPTOP ===== */}
-          <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-sm font-bold uppercase tracking-widest hover:text-stone-400 transition-colors">Koleksi</Link>
-            <Link to="/about" className="text-sm font-bold uppercase tracking-widest hover:text-stone-400 transition-colors">Tentang</Link>
+            {/* ===== MENU VERSI LAPTOP ===== */}
+            <div className="hidden md:flex items-center space-x-6">
+              <Link to="/" className="text-sm font-bold uppercase tracking-widest hover:text-stone-400 transition-colors">Koleksi</Link>
+              <Link to="/about" className="text-sm font-bold uppercase tracking-widest hover:text-stone-400 transition-colors">Tentang</Link>
 
-            {isLoggedIn ? (
-              <div className="flex items-center gap-4 border-l border-stone-600 pl-6">
-                {isAdmin && (
-                  <>
-                    <Link to="/tambah-menu" className="text-[10px] font-bold bg-white text-stone-800 px-3 py-1.5 rounded-full hover:bg-stone-200 transition-all uppercase tracking-tighter">
-                      + Tambah Produk
-                    </Link>
-                    <Link to="/admin/dashboard" className="text-[10px] font-bold border border-stone-500 text-white px-3 py-1.5 rounded-full hover:bg-stone-700 transition-all uppercase tracking-tighter">
-                      👑 Dashboard
-                    </Link>
-                  </>
-                )}
-                <Link to="/profile" className="text-xs font-bold hover:text-stone-400 transition-colors uppercase">Profil</Link>
-                <button onClick={handleLogout} className="bg-red-900/50 text-red-200 text-[10px] px-3 py-1.5 rounded-full font-bold hover:bg-red-800 transition-all uppercase">
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-4 border-l border-stone-600 pl-6">
-                <Link to="/login" className="text-xs font-bold hover:text-stone-400 transition-colors uppercase">Masuk</Link>
-                <Link to="/register" className="bg-white text-stone-800 px-4 py-2 rounded-full text-xs font-bold hover:bg-stone-200 transition-all uppercase">Daftar</Link>
-              </div>
-            )}
+              {isLoggedIn ? (
+                <div className="flex items-center gap-4 border-l border-stone-600 pl-6">
+                  {isAdmin && (
+                    <>
+                      <Link to="/tambah-menu" className="text-[10px] font-bold bg-white text-stone-800 px-3 py-1.5 rounded-full hover:bg-stone-200 transition-all uppercase tracking-tighter">
+                        + Tambah Produk
+                      </Link>
+                      <Link to="/admin/dashboard" className="text-[10px] font-bold border border-stone-500 text-white px-3 py-1.5 rounded-full hover:bg-stone-700 transition-all uppercase tracking-tighter">
+                        👑 Dashboard
+                      </Link>
+                    </>
+                  )}
+                  <Link to="/profile" className="text-xs font-bold hover:text-stone-400 transition-colors uppercase">Profil</Link>
+                  <button onClick={handleLogout} className="bg-red-900/50 text-red-200 text-[10px] px-3 py-1.5 rounded-full font-bold hover:bg-red-800 transition-all uppercase">
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-4 border-l border-stone-600 pl-6">
+                  <Link to="/login" className="text-xs font-bold hover:text-stone-400 transition-colors uppercase">Masuk</Link>
+                  <Link to="/register" className="bg-white text-stone-800 px-4 py-2 rounded-full text-xs font-bold hover:bg-stone-200 transition-all uppercase">Daftar</Link>
+                </div>
+              )}
+            </div>
+
+            {/* ===== TOMBOL HAMBURGER VERSI HP ===== */}
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+              className="md:hidden text-white hover:text-stone-300 transition-colors focus:outline-none"
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
 
-          {/* ===== TOMBOL HAMBURGER VERSI HP ===== */}
-          <button 
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="md:hidden text-white hover:text-stone-300 transition-colors focus:outline-none"
-          >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* ===== MENU DROPDOWN VERSI HP ===== */}
+          {isMobileMenuOpen && (
+            <div className="md:hidden mt-4 bg-stone-700 rounded-2xl p-5 flex flex-col space-y-4 border border-stone-600 shadow-xl animate-in fade-in slide-in-from-top-4">
+              <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-300 border-b border-stone-600 pb-3">Koleksi</Link>
+              <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-300 border-b border-stone-600 pb-3">Tentang</Link>
+
+              {isLoggedIn ? (
+                <div className="flex flex-col space-y-3 pt-2">
+                  {isAdmin && (
+                    <div className="flex flex-col gap-2 mb-2">
+                      <Link to="/tambah-menu" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold bg-white text-stone-800 px-4 py-2.5 rounded-full text-center hover:bg-stone-200 transition-all uppercase tracking-tighter">
+                        + Tambah Produk
+                      </Link>
+                      <Link to="/admin/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold border border-stone-400 text-white px-4 py-2.5 rounded-full text-center hover:bg-stone-600 transition-all uppercase tracking-tighter">
+                        👑 Dashboard
+                      </Link>
+                    </div>
+                  )}
+                  <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold hover:text-stone-300 uppercase">Profil</Link>
+                  <button 
+                    onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} 
+                    className="bg-red-900/50 text-red-200 text-xs px-4 py-3 mt-2 rounded-full font-bold hover:bg-red-800 transition-all uppercase w-full"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-col space-y-3 pt-2">
+                  <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold text-center border border-stone-500 py-2.5 rounded-full hover:bg-stone-600 transition-colors uppercase">Masuk</Link>
+                  <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="bg-white text-center text-stone-800 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-stone-200 transition-all uppercase">Daftar</Link>
+                </div>
+              )}
+            </div>
+          )}
+        </nav>
+
+        {/* 👇 Bagian flex-grow agar Footer tetap di bawah */}
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home tambahKeKeranjang={tambahKeKeranjang} />} />
+            <Route path="/produk/:id" element={<ProductDetail tambahKeKeranjang={tambahKeKeranjang} />} />
+            
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/lupa-password" element={<LupaPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/tambah-menu" element={<AdminRoute><TambahMenu /></AdminRoute>} />
+            <Route path="/edit-menu/:id" element={<AdminRoute><EditMenu /></AdminRoute>} />
+            <Route path="/admin/dashboard" element={<AdminRoute><DashboardAdmin /></AdminRoute>} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </div>
 
-        {/* ===== MENU DROPDOWN VERSI HP ===== */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 bg-stone-700 rounded-2xl p-5 flex flex-col space-y-4 border border-stone-600 shadow-xl animate-in fade-in slide-in-from-top-4">
-            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-300 border-b border-stone-600 pb-3">Koleksi</Link>
-            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-300 border-b border-stone-600 pb-3">Tentang</Link>
-
-            {isLoggedIn ? (
-              <div className="flex flex-col space-y-3 pt-2">
-                {isAdmin && (
-                  <div className="flex flex-col gap-2 mb-2">
-                    <Link to="/tambah-menu" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold bg-white text-stone-800 px-4 py-2.5 rounded-full text-center hover:bg-stone-200 transition-all uppercase tracking-tighter">
-                      + Tambah Produk
-                    </Link>
-                    <Link to="/admin/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold border border-stone-400 text-white px-4 py-2.5 rounded-full text-center hover:bg-stone-600 transition-all uppercase tracking-tighter">
-                      👑 Dashboard
-                    </Link>
-                  </div>
-                )}
-                <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold hover:text-stone-300 uppercase">Profil</Link>
-                <button 
-                  onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} 
-                  className="bg-red-900/50 text-red-200 text-xs px-4 py-3 mt-2 rounded-full font-bold hover:bg-red-800 transition-all uppercase w-full"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col space-y-3 pt-2">
-                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold text-center border border-stone-500 py-2.5 rounded-full hover:bg-stone-600 transition-colors uppercase">Masuk</Link>
-                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="bg-white text-center text-stone-800 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-stone-200 transition-all uppercase">Daftar</Link>
-              </div>
-            )}
-          </div>
-        )}
-      </nav>
-
-      <Routes>
-        <Route path="/" element={<Home tambahKeKeranjang={tambahKeKeranjang} />} />
-        <Route path="/produk/:id" element={<ProductDetail tambahKeKeranjang={tambahKeKeranjang} />} />
+        <FloatingCart isAdmin={isAdmin} totalItem={totalItemDiKeranjang} totalHarga={totalHargaKeranjang} bukaModal={() => setIsModalKeranjangOpen(true)} />
+        <CartModal isOpen={isModalKeranjangOpen} setIsOpen={setIsModalKeranjangOpen} keranjang={keranjang} kurangiDariKeranjang={kurangiDariKeranjang} tambahKeKeranjang={tambahKeKeranjang} totalHargaKeranjang={totalHargaKeranjang} kirimWhatsApp={kirimWhatsApp} kosongkanKeranjang={kosongkanKeranjang} />
         
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/lupa-password" element={<LupaPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/tambah-menu" element={<AdminRoute><TambahMenu /></AdminRoute>} />
-        <Route path="/edit-menu/:id" element={<AdminRoute><EditMenu /></AdminRoute>} />
-        <Route path="/admin/dashboard" element={<AdminRoute><DashboardAdmin /></AdminRoute>} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-
-      <FloatingCart isAdmin={isAdmin} totalItem={totalItemDiKeranjang} totalHarga={totalHargaKeranjang} bukaModal={() => setIsModalKeranjangOpen(true)} />
-      <CartModal isOpen={isModalKeranjangOpen} setIsOpen={setIsModalKeranjangOpen} keranjang={keranjang} kurangiDariKeranjang={kurangiDariKeranjang} tambahKeKeranjang={tambahKeKeranjang} totalHargaKeranjang={totalHargaKeranjang} kirimWhatsApp={kirimWhatsApp} kosongkanKeranjang={kosongkanKeranjang} />
-      
-      <Footer />
+        <Footer />
+        
+      {/* 👇 Tutup Sabuk Pengaman */}
+      </div>
     </BrowserRouter>
   );
 }
