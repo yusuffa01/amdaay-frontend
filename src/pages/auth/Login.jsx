@@ -32,8 +32,8 @@ function Login({ setIsLoggedIn }) {
       setPesan("Login berhasil! Mengalihkan ke Etalase...");
 
       setTimeout(() => {
-        navigate("/");
-      }, 1500);
+     window.location.href = "/"; // 🪄 Memaksa halaman berkedip/refresh ke Beranda
+   }, 1500);
     } catch (error) {
       setStatus("gagal");
       setPesan(error.response?.data?.error || "Gagal terhubung ke server.");

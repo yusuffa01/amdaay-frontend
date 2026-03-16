@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
-
+import { Menu, X } from "lucide-react";
 import Home from "./pages/menu/Home";
 import TambahMenu from "./pages/menu/TambahMenu";
 import Register from "./pages/auth/Register";
@@ -119,6 +119,8 @@ function App() {
     teks += `%0A*Total Bayar: Rp ${totalHargaKeranjang.toLocaleString('id-ID')}*%0A%0AMohon info ongkirnya ya Admin `
     window.open(`https://wa.me/${nomorWA}?text=${teks}`, '_blank')
     setIsModalKeranjangOpen(false);
+
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   };
 
   return (
@@ -128,6 +130,7 @@ function App() {
       {/* NAVBAR */}
       <nav className="bg-stone-800 p-4 shadow-lg sticky top-0 z-40">
         <div className="max-w-6xl mx-auto flex justify-between items-center text-white">
+          {/* Logo & Judul */}
           <Link to="/" className="flex items-center gap-3 group">
             <img src="/logoweb.jpg" alt="Logo" className="h-12 w-12 object-cover rounded-full border-2 border-stone-600" />
             <span className="text-xl font-serif font-bold text-white tracking-widest uppercase group-hover:text-stone-300 transition-colors">
@@ -135,6 +138,7 @@ function App() {
             </span>
           </Link>
 
+          {/* ===== MENU VERSI LAPTOP (Tetap Sama) ===== */}
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/" className="text-sm font-bold uppercase tracking-widest hover:text-stone-400 transition-colors">Koleksi</Link>
             <Link to="/about" className="text-sm font-bold uppercase tracking-widest hover:text-stone-400 transition-colors">Tentang</Link>
@@ -163,7 +167,50 @@ function App() {
               </div>
             )}
           </div>
+
+          {/* ===== TOMBOL HAMBURGER VERSI HP ===== */}
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="md:hidden text-white hover:text-stone-300 transition-colors focus:outline-none"
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
+
+        {/* ===== MENU DROPDOWN VERSI HP ===== */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden mt-4 bg-stone-700 rounded-2xl p-5 flex flex-col space-y-4 border border-stone-600 shadow-xl animate-in fade-in slide-in-from-top-4">
+            <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-300 border-b border-stone-600 pb-3">Koleksi</Link>
+            <Link to="/about" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold uppercase tracking-widest hover:text-stone-300 border-b border-stone-600 pb-3">Tentang</Link>
+
+            {isLoggedIn ? (
+              <div className="flex flex-col space-y-3 pt-2">
+                {isAdmin && (
+                  <div className="flex flex-col gap-2 mb-2">
+                    <Link to="/tambah-menu" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold bg-white text-stone-800 px-4 py-2.5 rounded-full text-center hover:bg-stone-200 transition-all uppercase tracking-tighter">
+                      + Tambah Produk
+                    </Link>
+                    <Link to="/admin/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="text-xs font-bold border border-stone-400 text-white px-4 py-2.5 rounded-full text-center hover:bg-stone-600 transition-all uppercase tracking-tighter">
+                      👑 Dashboard
+                    </Link>
+                  </div>
+                )}
+                <Link to="/profile" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold hover:text-stone-300 uppercase">Profil</Link>
+                <button 
+                  onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} 
+                  className="bg-red-900/50 text-red-200 text-xs px-4 py-3 mt-2 rounded-full font-bold hover:bg-red-800 transition-all uppercase w-full"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-3 pt-2">
+                <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-sm font-bold text-center border border-stone-500 py-2.5 rounded-full hover:bg-stone-600 transition-colors uppercase">Masuk</Link>
+                <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="bg-white text-center text-stone-800 px-4 py-2.5 rounded-full text-sm font-bold hover:bg-stone-200 transition-all uppercase">Daftar</Link>
+              </div>
+            )}
+          </div>
+        )}
       </nav>
 
       <Routes>
