@@ -113,7 +113,7 @@ function App() {
 
   const kirimWhatsApp = () => {
     if (keranjang.length === 0) return;
-    const nomorWA = "6289622000010"
+    const nomorWA = "6285281917405"
     let teks = `Halo Admin Amdaay.scarf, saya ingin order koleksi ini:%0A%0A`
     keranjang.forEach((item, index) => {
       teks += `${index + 1}. *${item.nama || item.Nama}* (x${item.qty})%0A`
